@@ -1,8 +1,10 @@
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+
 export const uploadDocument = async (file: File) => {
   const formData = new FormData();
   formData.append("file", file);
 
-  const res = await fetch("http://localhost:3000/documents", {
+  const res = await fetch(`${API_URL}/documents`, {
     method: "POST",
     body: formData,
   });
@@ -12,13 +14,13 @@ export const uploadDocument = async (file: File) => {
 };
 
 export const getDocument = async (id: string) => {
-  const res = await fetch(`http://localhost:3000/documents/${id}`);
+  const res = await fetch(`${API_URL}/documents/${id}`);
   if (!res.ok) throw new Error("Documento not found");
   return res.json();
 };
 
 export const askDocument = async (id: string, question: string) => {
-  const res = await fetch(`http://localhost:3000/documents/${id}/ask`, {
+  const res = await fetch(`${API_URL}/documents/${id}/ask`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
